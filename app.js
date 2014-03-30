@@ -22,9 +22,7 @@ var http 	= require('http')
 app.configure( function(){
 
 	app.set( 'port', process.env.PORT || 5000 );
-	app.engine( 'ejs', engine );
 	app.set( 'views', __dirname + '/views' );
-	app.set( 'view engine', 'ejs' );
 	app.set( 'view options', {
 	layout: false
 	});

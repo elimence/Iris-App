@@ -1,22 +1,49 @@
-<% layout( 'layout' ) -%>
+<!DOCTYPE html>
 
-<div ng-controller="AppCtrl">
-  <h2>Hello {{name}}</h2>
-  <ul class="menu">
-    <li><a href="view1">view 1</a></li>
-    <li><a href="view2">view 2</a></li>
-  </ul>
+<html lang="en">
 
-  <div ng-view>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Paysail is a simple way for small businesses to manage their payroll.">
+  <meta name="author" content="Paysail">
+
+  <link rel="shortcut icon" href="/assets/images/favicon.png">
+  <link rel="stylesheet" href="/css/app.css">
+
+  <title>Iris - epidermic watch</title>
+</head>
+
+<body>
+
+  <div ng-controller="AppCtrl">
+    <h2>Hello {{name}}</h2>
+    <ul class="menu">
+      <li><a href="view1">view 1</a></li>
+      <li><a href="view2">view 2</a></li>
+    </ul>
+
+    <div ng-view>
+    </div>
+
+    <div>Angular seed app: v<span app-version></span>
+    </div>
   </div>
 
-  <div>Angular seed app: v<span app-version></span>
-  </div>
-</div>
+  <script src="js/lib/angular/angular.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/directives.js"></script>
 
-<script src="js/lib/angular/angular.js"></script>
-<script src="js/app.js"></script>
-<script src="js/services.js"></script>
-<script src="js/controllers.js"></script>
-<script src="js/filters.js"></script>
-<script src="js/directives.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
