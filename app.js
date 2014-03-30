@@ -3,38 +3,56 @@
  * Module dependencies
  */
 
-var express = require('express'),
-  routes = require('./routes'),
-  api = require('./routes/api'),
-  http = require('http'),
-  path = require('path');
-
-var app = module.exports = express();
+var http 	= require('http')
+  , path 	= require('path')
+  , express = require('express')
+  , routes 	= require('./routes')
+  , remote  = require( './routes/remote')
+  , api 	= require('./routes/api')
+  , engine  = require( 'ejs-locals' )
+  , app		= express();
 
 
 /**
  * Configuration
  */
 
-// all environments
-app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(app.router);
+ // Configuration
 
-// development only
-if (app.get('env') === 'development') {
-  app.use(express.errorHandler());
-}
+app.configure( function(){
 
-// production only
-if (app.get('env') === 'production') {
-  // TODO
-}
+	app.set( 'port', process.env.PORT || 5000 );
+	app.engine( 'ejs', engine );
+	app.set( 'views', __dirname + '/views' );
+	app.set( 'view engine', 'ejs' );
+	app.set( 'view options', {
+	layout: false
+	});
+	app.use( express.bodyParser());
+	app.use( express.methodOverride());
+	app.use( express.static( __dirname + '/public' ));
+	app.use( app.router );
+
+	// Handle 404
+	app.use(function(req, res) {
+	 res.send('404: Page not Found', 404);
+	});
+
+	// Handle 500
+	app.use(function(error, req, res, next) {
+	console.log(error.stack);
+	 res.send('500: Internal Server Error', 500);
+	});
+
+});
+
+app.configure('development', function(){
+	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.configure('production', function(){
+	app.use(express.errorHandler());
+}); // Configs End
 
 
 /**
@@ -43,10 +61,14 @@ if (app.get('env') === 'production') {
 
 // serve index and view partials
 app.get('/', routes.index);
-app.get('/partials/:name', routes.partials);
+app.get( '/partials/:name', routes.partials );
 
 // JSON API
-app.get('/api/name', api.name);
+app.get( '/api/name', api.post );
+
+// Remote API
+app.post( '/remote/start', remote.start_sequence );
+
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
@@ -57,5 +79,5 @@ app.get('*', routes.index);
  */
 
 http.createServer(app).listen(app.get('port'), function () {
-  console.log('Express server listening on port ' + app.get('port'));
+  console.log('Iris Up @ ' + app.get('port'));
 });

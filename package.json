@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "express": "~3.2.6",
-    "jade": "~0.31.2"
+    "jade": "~0.31.2",
+    "ejs": "~1.0.0",
+    "ejs-locals": "~1.0.2"
   }
 }
