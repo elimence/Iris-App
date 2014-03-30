@@ -21,6 +21,7 @@ var http 	= require('http')
 app.configure( function(){
 
 	app.set( 'port', process.env.PORT || 5000 );
+	app.engine('html', require('ejs').renderFile);
 	app.set( 'views', __dirname + '/views' );
 	app.set( 'view options', {
 	layout: false
