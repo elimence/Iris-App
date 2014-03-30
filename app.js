@@ -9,7 +9,6 @@ var http 	= require('http')
   , routes 	= require('./routes')
   , remote  = require( './routes/remote')
   , api 	= require('./routes/api')
-  , engine  = require( 'ejs-locals' )
   , app		= express();
 
 
