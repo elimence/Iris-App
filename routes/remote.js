@@ -3,7 +3,7 @@
  * GET home page.
  */
 
- var https = require('https');
+var https = require('https');
 var querystring = require('querystring');
 
 exports.start_sequence = function(req, res){
@@ -55,7 +55,6 @@ exports.start_sequence = function(req, res){
         method: 'POST'
     }
 
-    // createSubscriber
     var request = https.request(options, function (response) {
         console.log('STATUS: ' + response.statusCode);
         console.log('HEADERS: ' + JSON.stringify(response.headers));
